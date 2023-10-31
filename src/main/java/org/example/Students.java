@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Students {
@@ -28,5 +29,21 @@ public class Students {
                 ", grades=" + grades +
                 ", specialty='" + specialty + '\'' +
                 "}\n";
+    }
+
+    /**
+     * Метод считает среднюю арифметическую оценку студентов со специализацией "Информатика"
+     * и сортирует пятерых студентов по возрастанию этой оценки
+     * @param students - массив студентов
+     */
+    public static void averageGrades(List<Students> students) {
+        List<Students> result = students.stream()
+                .filter(s -> s.getSpecialty().equals("Информатика"))
+                .filter(s -> s.getGrades().stream().mapToDouble(Double::doubleValue).average().orElse(0) > 4.5)
+                .sorted(Comparator.comparingDouble(s -> s.getGrades().stream().mapToDouble(Double::doubleValue)
+                        .average().orElse(0)))
+                .limit(5)
+                .toList();
+        System.out.println(result);
     }
 }

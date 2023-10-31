@@ -31,14 +31,6 @@ public class Main {
         students.add(student8);
         students.add(student9);
 
-        List<Students> result = students.stream()
-                .filter(s -> s.getSpecialty().equals("Информатика"))
-                .filter(s -> s.getGrades().stream().mapToDouble(Double::doubleValue).average().orElse(0) > 4.5)
-                .sorted(Comparator.comparingDouble(s -> s.getGrades().stream().mapToDouble(Double::doubleValue)
-                        .average().orElse(0)))
-                .limit(5)
-                .toList();
-
-        System.out.println(result);
+        Students.averageGrades(students);
     }
 }
